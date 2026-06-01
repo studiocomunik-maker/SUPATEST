@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Trash2, Check, RotateCcw, Phone, Users } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import AdminShell from "../AdminShell";
+import { SkeletonList } from "../Skeleton";
 
 type Reservation = {
   id: number;
@@ -63,7 +64,7 @@ export default function ReservationsAdminPage() {
         {error && <p className="mb-4 text-sm text-red-600">⚠️ {error}</p>}
 
         {loading ? (
-          <p className="text-sm text-zinc-400">Chargement…</p>
+          <SkeletonList rows={4} />
         ) : rows.length === 0 ? (
           <div className="rounded-xl border border-dashed border-zinc-300 bg-white/50 p-10 text-center text-sm text-zinc-500">
             Aucune demande pour l&apos;instant.

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Trash2, UserPlus } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import AdminShell from "../AdminShell";
+import { SkeletonList } from "../Skeleton";
 
 type AdminUser = { id: string; email: string | null; created_at: string };
 
@@ -123,7 +124,7 @@ export default function AccountAdminPage() {
             )}
           </h2>
           {loading ? (
-            <p className="text-sm text-zinc-400">Chargement…</p>
+            <SkeletonList rows={3} />
           ) : (
             <ul className="space-y-2">
               {users.map((u) => (

@@ -92,9 +92,21 @@ export default function AdminShell({
   }
 
   if (!ready) {
+    // Skeleton de la coquille pendant la vérification de session
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-100 text-sm text-zinc-400">
-        Vérification de la session…
+      <div className="flex min-h-screen bg-zinc-100">
+        <aside className="w-60 border-r border-zinc-200 bg-white p-3">
+          <div className="mb-4 h-10 animate-pulse rounded bg-zinc-100" />
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="mb-2 h-9 animate-pulse rounded-lg bg-zinc-100" />
+          ))}
+        </aside>
+        <div className="flex-1 p-6">
+          <div className="mx-auto max-w-2xl space-y-3">
+            <div className="h-8 w-1/3 animate-pulse rounded bg-zinc-200" />
+            <div className="h-24 w-full animate-pulse rounded-xl bg-zinc-200" />
+          </div>
+        </div>
       </div>
     );
   }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Pencil, Trash2, Plus } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import AdminShell from "../AdminShell";
+import { SkeletonList } from "../Skeleton";
 
 type Event = {
   id: number;
@@ -189,7 +190,7 @@ export default function EventsAdminPage() {
 
         {/* Liste */}
         {loading ? (
-          <p className="text-sm text-zinc-400">Chargement…</p>
+          <SkeletonList rows={4} />
         ) : events.length === 0 ? (
           <p className="text-sm text-zinc-400">Aucun événement pour l&apos;instant.</p>
         ) : (

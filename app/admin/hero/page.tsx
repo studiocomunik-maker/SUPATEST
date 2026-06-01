@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { getContent } from "@/utils/content";
 import AdminShell from "../AdminShell";
+import { SkeletonForm } from "../Skeleton";
 
 // Clés gérées par cette section.
 const KEYS = ["hero.accroche", "hero.horaires", "hero.background"];
@@ -83,7 +84,7 @@ export default function HeroAdminPage() {
         </p>
 
         {loading ? (
-          <p className="text-sm text-zinc-400">Chargement…</p>
+          <SkeletonForm />
         ) : (
           <form
             onSubmit={handleSave}

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Trash2, Upload } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import AdminShell from "../AdminShell";
+import { SkeletonGrid } from "../Skeleton";
 
 type Photo = {
   id: number;
@@ -114,7 +115,7 @@ export default function GalleryAdminPage() {
 
         {/* Grille des photos */}
         {loading ? (
-          <p className="text-sm text-zinc-400">Chargement…</p>
+          <SkeletonGrid items={6} />
         ) : photos.length === 0 ? (
           <p className="text-sm text-zinc-400">Aucune photo pour l&apos;instant.</p>
         ) : (

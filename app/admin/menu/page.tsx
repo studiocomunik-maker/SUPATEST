@@ -6,6 +6,7 @@ import { createClient } from "@/utils/supabase/client";
 import { getContent } from "@/utils/content";
 import { MENU_SECTIONS, MENU_TAGS } from "@/app/restaurant/data";
 import AdminShell from "../AdminShell";
+import { SkeletonList } from "../Skeleton";
 
 type Item = {
   id: number;
@@ -154,7 +155,7 @@ export default function MenuAdminPage() {
     <AdminShell title="Menu">
       <div className="mx-auto max-w-2xl space-y-10">
         {loading ? (
-          <p className="text-sm text-zinc-400">Chargement…</p>
+          <SkeletonList rows={5} />
         ) : (
           <>
             {MENU_SECTIONS.map((section) => {
