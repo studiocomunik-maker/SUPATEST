@@ -17,8 +17,8 @@ export default function Home() {
         <Hero />
         <Features />
         <Menu />
-        <Events />
         <Gallery />
+        <Events />
         <Reservation />
       </main>
       <Footer />
