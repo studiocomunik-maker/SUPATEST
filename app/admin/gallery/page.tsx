@@ -54,9 +54,20 @@ export default function GalleryAdminPage() {
         continue;
       }
       const { data } = supabase.storage.from("media").getPublicUrl(path);
-      const { error: insErr } = await supabase
-        .from("gallery")
-        .insert({ image_url: data.publicUrl, caption: "" });
+      // Lit les dimensions réelles de l'image (pour next/image + masonry sans CLS)
+      const dims = await new Promise<{ w: number; h: number }>((resolve) => {
+        const img = new window.Image();
+        img.onload = () =>
+          resolve({ w: img.naturalWidth, h: img.naturalHeight });
+        img.onerror = () => resolve({ w: 0, h: 0 });
+        img.src = URL.createObjectURL(file);
+      });
+      const { error: insErr } = await supabase.from("gallery").insert({
+        image_url: data.publicUrl,
+        caption: "",
+        width: dims.w || null,
+        height: dims.h || null,
+      });
       if (insErr) setError(`Erreur enregistrement : ${insErr.message}`);
     }
 

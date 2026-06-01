@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { createClient } from "@/utils/supabase/client";
 import Reveal from "./Reveal";
 
-type Photo = { id: number; image_url: string; caption: string | null };
+type Photo = {
+  id: number;
+  image_url: string;
+  caption: string | null;
+  width: number | null;
+  height: number | null;
+};
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const item = {
@@ -23,7 +30,7 @@ export default function Gallery() {
       const supabase = createClient();
       const { data } = await supabase
         .from("gallery")
-        .select("id, image_url, caption")
+        .select("id, image_url, caption, width, height")
         .order("position", { ascending: true })
         .order("id", { ascending: true });
       if (data) setPhotos(data);
@@ -57,11 +64,13 @@ export default function Gallery() {
               variants={item}
               className="group relative mb-4 block break-inside-avoid overflow-hidden rounded-xl"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={p.image_url}
                 alt={p.caption ?? ""}
-                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                width={p.width ?? 800}
+                height={p.height ?? 1000}
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               {p.caption && (
                 <figcaption className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink/80 to-transparent p-4 text-sm text-ivory transition-transform duration-300 group-hover:translate-y-0">

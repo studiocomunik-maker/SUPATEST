@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { restaurant } from "../data";
@@ -64,12 +65,19 @@ export default function Hero() {
       id="top"
       className="relative flex min-h-screen items-center justify-center overflow-hidden grain"
     >
-      {/* Fond : parallaxe (motion) sur le conteneur, Ken Burns (CSS) sur l'image */}
+      {/* Fond : parallaxe (motion) sur le conteneur, Ken Burns (CSS) sur l'image.
+          next/image optimise (AVIF/WebP, taille), priority car c'est le LCP. */}
       <motion.div style={{ y: bgY }} className="absolute inset-0">
-        <div
-          className="hero-kenburns absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${background}')` }}
-        />
+        <div className="hero-kenburns absolute inset-0">
+          <Image
+            src={background}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
       </motion.div>
       <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/55 to-ink/80" />
       <div className="absolute inset-0 bg-wine-dark/20 mix-blend-multiply" />
