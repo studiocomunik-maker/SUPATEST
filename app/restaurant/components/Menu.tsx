@@ -8,22 +8,21 @@ import { menu as fallbackMenu, MENU_SECTIONS, type MenuSection } from "../data";
 import Reveal from "./Reveal";
 
 const tagStyles: Record<string, string> = {
-  Signature: "bg-wine text-cream",
-  Végétarien: "bg-sage text-cream",
-  "De saison": "bg-gold text-ink",
+  Signature: "border-wine/40 text-wine",
+  Végétarien: "border-sage/50 text-sage",
+  "De saison": "border-gold/60 text-gold-dark",
 };
 
 const DEFAULT_MENTIONS =
   "Nos plats sont faits maison, selon les produits de saison.";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-// Conteneur qui décale l'apparition de ses enfants (effet cascade)
 const listVariants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.07 } },
 };
 const itemVariants = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 14 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
 };
 
@@ -51,7 +50,6 @@ export default function Menu() {
               tag: (r.tag ?? undefined) as MenuSection["items"][number]["tag"],
             })),
         })).filter((s) => s.items.length > 0);
-
         if (grouped.length > 0) setSections(grouped);
       }
 
@@ -61,74 +59,85 @@ export default function Menu() {
   }, []);
 
   return (
-    <section id="menu" className="bg-cream py-24 grain">
-      <div className="mx-auto max-w-4xl px-6">
+    <section id="menu" className="bg-cream py-28 grain">
+      <div className="mx-auto max-w-3xl px-6">
+        {/* En-tête */}
         <Reveal className="text-center">
-          <p className="text-sm uppercase tracking-[0.3em] text-gold">À table</p>
-          <h2 className="mt-3 font-serif text-4xl text-ink md:text-5xl">
+          <p className="text-sm uppercase tracking-[0.35em] text-gold">À table</p>
+          <h2 className="mt-4 font-serif text-4xl text-ink md:text-6xl">
             La carte
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-ink/65">{mentions}</p>
+          {/* Ornement doré */}
+          <div className="mx-auto mt-6 flex items-center justify-center gap-3">
+            <span className="h-px w-10 bg-gold/50" />
+            <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
+            <span className="h-px w-10 bg-gold/50" />
+          </div>
+          <p className="mx-auto mt-6 max-w-md font-serif text-lg italic text-ink/55">
+            {mentions}
+          </p>
         </Reveal>
 
-        <div className="mt-16 space-y-14">
-          {sections.map((section) => (
-            <motion.div
-              key={section.title}
-              variants={listVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-60px" }}
-            >
-              {/* Titre de section + filet qui se dessine */}
-              <h3 className="flex items-center gap-4 font-serif text-2xl text-wine">
-                <motion.span variants={itemVariants}>{section.title}</motion.span>
-                <motion.span
-                  variants={{
-                    hidden: { scaleX: 0 },
-                    show: { scaleX: 1, transition: { duration: 0.7, ease: EASE } },
-                  }}
-                  style={{ transformOrigin: "left" }}
-                  className="h-px flex-1 bg-ink/15"
-                />
-              </h3>
+        {/* Carte encadrée (effet papier) */}
+        <div className="mt-14 rounded-2xl border border-ink/10 bg-ivory/70 px-7 py-12 shadow-sm md:px-14 md:py-16">
+          <div className="space-y-14">
+            {sections.map((section) => (
+              <motion.div
+                key={section.title}
+                variants={listVariants}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-60px" }}
+              >
+                {/* Titre de section centré avec filets dorés */}
+                <motion.div
+                  variants={itemVariants}
+                  className="mb-8 flex items-center justify-center gap-4"
+                >
+                  <span className="h-px w-12 bg-gradient-to-r from-transparent to-gold/60" />
+                  <h3 className="font-serif text-2xl text-wine md:text-3xl">
+                    {section.title}
+                  </h3>
+                  <span className="h-px w-12 bg-gradient-to-l from-transparent to-gold/60" />
+                </motion.div>
 
-              <ul className="mt-6 space-y-6">
-                {section.items.map((item) => (
-                  <motion.li
-                    key={item.name}
-                    variants={itemVariants}
-                    whileHover={{ x: 6 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                    className="group flex items-baseline justify-between gap-4"
-                  >
-                    <div>
-                      <div className="flex items-center gap-3">
-                        <h4 className="relative font-medium text-ink after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-wine after:transition-all after:duration-300 group-hover:after:w-full">
+                <ul className="space-y-7">
+                  {section.items.map((item) => (
+                    <motion.li
+                      key={item.name}
+                      variants={itemVariants}
+                      className="group"
+                    >
+                      <div className="flex items-end gap-3">
+                        <h4 className="font-serif text-lg text-ink transition-colors group-hover:text-wine">
                           {item.name}
                         </h4>
                         {item.tag && (
                           <span
-                            className={`rounded-full px-2.5 py-0.5 text-[10px] uppercase tracking-wider ${
-                              tagStyles[item.tag] ?? "bg-ink/10 text-ink"
+                            className={`mb-1 whitespace-nowrap rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wider ${
+                              tagStyles[item.tag] ?? "border-ink/20 text-ink/60"
                             }`}
                           >
                             {item.tag}
                           </span>
                         )}
+                        {/* Ligne pointillée (leader) reliant le plat au prix */}
+                        <span className="mb-2 flex-1 border-b border-dotted border-ink/25" />
+                        <span className="whitespace-nowrap font-serif text-lg text-wine">
+                          {item.price}&nbsp;€
+                        </span>
                       </div>
-                      <p className="mt-1 text-sm text-ink/60">
-                        {item.description}
-                      </p>
-                    </div>
-                    <div className="whitespace-nowrap font-serif text-lg text-wine transition-transform duration-300 group-hover:scale-110">
-                      {item.price}&nbsp;€
-                    </div>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+                      {item.description && (
+                        <p className="mt-1.5 max-w-[88%] text-sm leading-relaxed text-ink/55">
+                          {item.description}
+                        </p>
+                      )}
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
