@@ -2,6 +2,7 @@ import Navbar from "./restaurant/components/Navbar";
 import Hero from "./restaurant/components/Hero";
 import Features from "./restaurant/components/Features";
 import Menu from "./restaurant/components/Menu";
+import Gallery from "./restaurant/components/Gallery";
 import Reservation from "./restaurant/components/Reservation";
 import Footer from "./restaurant/components/Footer";
 
@@ -15,6 +16,7 @@ export default function Home() {
         <Hero />
         <Features />
         <Menu />
+        <Gallery />
         <Reservation />
       </main>
       <Footer />

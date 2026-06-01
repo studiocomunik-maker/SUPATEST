@@ -6,6 +6,7 @@ import { restaurant } from "../data";
 const links = [
   { href: "#produits", label: "Nos produits" },
   { href: "#menu", label: "La carte" },
+  { href: "#galerie", label: "Galerie" },
   { href: "#reservation", label: "Réserver" },
 ];
 

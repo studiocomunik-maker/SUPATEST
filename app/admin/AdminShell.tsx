@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   Image as ImageIcon,
   UtensilsCrossed,
+  Images,
   CalendarCheck,
   Users,
   LogOut,
@@ -18,6 +19,7 @@ const navItems = [
   { label: "Tableau de bord", icon: LayoutDashboard, href: "/admin", enabled: true },
   { label: "Hero", icon: ImageIcon, href: "/admin/hero", enabled: true },
   { label: "Menu", icon: UtensilsCrossed, href: "/admin/menu", enabled: true },
+  { label: "Galerie", icon: Images, href: "/admin/gallery", enabled: true },
   { label: "Réservations", icon: CalendarCheck, href: "/admin/reservations", enabled: true },
 ];
 
