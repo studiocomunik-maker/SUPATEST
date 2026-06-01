@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { createClient } from "@/utils/supabase/client";
 import { getContent } from "@/utils/content";
-import { menu as fallbackMenu, MENU_SECTIONS, type MenuSection } from "../data";
+import { MENU_SECTIONS, type MenuSection } from "../data";
 import Reveal from "./Reveal";
 
 const tagStyles: Record<string, string> = {
@@ -12,9 +12,6 @@ const tagStyles: Record<string, string> = {
   Végétarien: "border-sage/50 text-sage",
   "De saison": "border-gold/60 text-gold-dark",
 };
-
-const DEFAULT_MENTIONS =
-  "Nos plats sont faits maison, selon les produits de saison.";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const listVariants = {
@@ -26,9 +23,17 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
 };
 
-export default function Menu() {
-  const [sections, setSections] = useState<MenuSection[]>(fallbackMenu);
-  const [mentions, setMentions] = useState(DEFAULT_MENTIONS);
+export default function Menu({
+  initialSections,
+  initialMentions,
+}: {
+  initialSections: MenuSection[];
+  initialMentions: string;
+}) {
+  // Données fournies par le serveur (vraies, fraîches via ISR).
+  // Le re-fetch client ci-dessous les met à jour à l'instant si tu édites le back-office.
+  const [sections, setSections] = useState<MenuSection[]>(initialSections);
+  const [mentions, setMentions] = useState(initialMentions);
 
   useEffect(() => {
     (async () => {
