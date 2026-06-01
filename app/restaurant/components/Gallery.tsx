@@ -49,19 +49,19 @@ export default function Gallery() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-60px" }}
-          className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-3"
+          className="mt-14 gap-4 columns-2 md:columns-3"
         >
           {photos.map((p) => (
             <motion.figure
               key={p.id}
               variants={item}
-              className="group relative overflow-hidden rounded-xl"
+              className="group relative mb-4 block break-inside-avoid overflow-hidden rounded-xl"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={p.image_url}
                 alt={p.caption ?? ""}
-                className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
               />
               {p.caption && (
                 <figcaption className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink/80 to-transparent p-4 text-sm text-ivory transition-transform duration-300 group-hover:translate-y-0">
