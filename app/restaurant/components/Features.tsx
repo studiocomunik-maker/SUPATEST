@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import { featuredDishes } from "../data";
 import Reveal from "./Reveal";
 
@@ -25,12 +25,13 @@ export default function Features() {
             <Reveal key={dish.name} delay={i * 0.12}>
               <article className="group">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-                  <Image
+                  <SafeImage
                     src={dish.image}
                     alt={dish.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    fallbackClassName="absolute inset-0 bg-cream"
                   />
                 </div>
                 <h3 className="mt-5 font-serif text-2xl text-ink">

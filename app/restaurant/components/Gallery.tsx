@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import { motion } from "motion/react";
 import { createClient } from "@/utils/supabase/client";
 import Reveal from "./Reveal";
@@ -64,13 +64,14 @@ export default function Gallery() {
               variants={item}
               className="group relative mb-4 block break-inside-avoid overflow-hidden rounded-xl"
             >
-              <Image
+              <SafeImage
                 src={p.image_url}
                 alt={p.caption ?? ""}
                 width={p.width ?? 800}
                 height={p.height ?? 1000}
                 sizes="(max-width: 768px) 50vw, 33vw"
                 className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                fallbackClassName="w-full bg-cream"
               />
               {p.caption && (
                 <figcaption className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink/80 to-transparent p-4 text-sm text-ivory transition-transform duration-300 group-hover:translate-y-0">

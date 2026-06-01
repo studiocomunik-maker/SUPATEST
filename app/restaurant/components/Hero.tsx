@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { restaurant } from "../data";
@@ -69,13 +69,15 @@ export default function Hero() {
           next/image optimise (AVIF/WebP, taille), priority car c'est le LCP. */}
       <motion.div style={{ y: bgY }} className="absolute inset-0">
         <div className="hero-kenburns absolute inset-0">
-          <Image
+          <SafeImage
             src={background}
             alt=""
             fill
             priority
             sizes="100vw"
             className="object-cover"
+            fallbackSrc={DEFAULT_BG}
+            fallbackClassName="absolute inset-0 bg-ink"
           />
         </div>
       </motion.div>

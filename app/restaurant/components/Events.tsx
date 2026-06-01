@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import SafeImage from "./SafeImage";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
@@ -85,12 +85,13 @@ export default function Events() {
             >
               {/* Fond : image ou dégradé */}
               {ev.image_url ? (
-                <Image
+                <SafeImage
                   src={ev.image_url}
                   alt={ev.title}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
+                  fallbackClassName="absolute inset-0 bg-gradient-to-br from-wine-dark to-ink"
                 />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-wine-dark to-ink" />
