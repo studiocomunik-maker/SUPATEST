@@ -8,6 +8,7 @@ import {
   Image as ImageIcon,
   UtensilsCrossed,
   Images,
+  CalendarDays,
   CalendarCheck,
   Users,
   LogOut,
@@ -20,6 +21,7 @@ const navItems = [
   { label: "Hero", icon: ImageIcon, href: "/admin/hero", enabled: true },
   { label: "Menu", icon: UtensilsCrossed, href: "/admin/menu", enabled: true },
   { label: "Galerie", icon: Images, href: "/admin/gallery", enabled: true },
+  { label: "Événements", icon: CalendarDays, href: "/admin/events", enabled: true },
   { label: "Réservations", icon: CalendarCheck, href: "/admin/reservations", enabled: true },
 ];
 
