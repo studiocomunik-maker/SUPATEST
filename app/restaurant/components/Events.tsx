@@ -66,7 +66,7 @@ export default function Events() {
             Nos événements
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-ivory/55">
-            Soirées, dégustations et rendez-vous gourmands à la Maison.
+            Soirées, dégustations et rendez-vous gourmands.
           </p>
         </Reveal>
 
